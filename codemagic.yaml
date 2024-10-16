@@ -1,0 +1,50 @@
+workflows:
+  flutter-workflow:
+    name: Flutter CI/CD Workflow
+    environment:
+      flutter: stable
+      xcode: latest
+    scripts:
+      - name: Install dependencies
+        script: |
+          echo "Installing dependencies..."
+          flutter pub get
+
+      - name: Build Android
+        script: |
+          echo "Building Android APK..."
+          flutter build apk --release
+
+      - name: Build iOS
+        script: |
+          echo "Building iOS App..."
+          flutter build ios --release
+
+      - name: Build Web
+        script: |
+          echo "Building Web App..."
+          flutter build web --release
+      - name: Run Tests
+        script: |
+          echo "Running tests..."
+          flutter test
+
+    artifacts:
+      # Specify artifacts to be saved and downloadable after the build
+      - build/**/outputs/**/*.apk
+      - build/ios/ipa/*.ipa
+      - build/web/** # This will include the web build artifacts
+
+    
+
+    # for deployment settings
+    # deployment:
+    #   ios:
+    #     code_signing:
+    #       key: $IOS_CODE_SIGNING_KEY # Set this in your Codemagic environment variables
+    #       provisioning_profile: $IOS_PROVISIONING_PROFILE # Set this in your Codemagic environment variables
+    #   android:
+    #     keystore:
+    #       key: $ANDROID_KEYSTORE # Set this in your Codemagic environment variables
+    #       alias: $ANDROID_KEY_ALIAS # Set this in your Codemagic environment variables
+    #       password: $ANDROID_KEY_PASSWORD # Set this in your Codemagic environment variables
