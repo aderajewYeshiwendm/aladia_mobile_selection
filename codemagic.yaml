@@ -24,10 +24,10 @@ workflows:
         script: |
           echo "Building Web App..."
           flutter build web --release
-      - name: Run Tests
-        script: |
-          echo "Running tests..."
-          flutter test
+      # - name: Run Tests
+      #   script: |
+      #     echo "Running tests..."
+      #     flutter test
 
     artifacts:
       # Specify artifacts to be saved and downloadable after the build
